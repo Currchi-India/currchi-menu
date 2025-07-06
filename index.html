@@ -525,7 +525,8 @@ body.light-mode .back-to-top {
   <p>📞 <strong>Hosting a party? We cater events & bulk orders – Call us for deals! +91 9211791827</strong></p>
   <p>💬 <em>Order Now via WhatsApp or Call – We're Just a Tap Away!”</em></p>
   <p>📍 <a href="https://maps.app.goo.gl/vV4UCGasmaPHKLAT8" target="_blank" style="color: inherit; text-decoration: underline;">Find us on Google Maps</a></p>
-  <p>📲 <strong>Bookmark this menu or Add to Home Screen for easy reorders!</strong></p>
+  <p id="bookmark-line" style="opacity: 0; transition: opacity 0.6s ease;">
+  📲 <strong>Bookmark this menu or Add to Home Screen for easy reorders!</strong></p>
   <p><strong>&#174;</strong> 2025 CURRCHI – Full on Desi, Full on Swad!</p>
 </div>
 
@@ -581,6 +582,20 @@ window.addEventListener("scroll", () => {
       launchBalloon();
       lastBurst = Date.now();
     }
+  }
+});
+    // Fade in bookmark line when user scrolls to bottom
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = window.innerHeight;
+
+  const bookmark = document.getElementById('bookmark-line');
+
+  if (scrollY + clientHeight >= scrollHeight - 150) {
+    bookmark.style.opacity = 1;
+  } else {
+    bookmark.style.opacity = 0;
   }
 });
 
