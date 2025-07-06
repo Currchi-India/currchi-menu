@@ -185,6 +185,59 @@ body.light-mode .back-to-top {
   background-color: #333;
   color: #fff;
 }
+    #balloon {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  font-size: 3rem;
+  animation: floatUp 2s ease-out forwards;
+  z-index: 9998;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    bottom: -100px;
+    opacity: 1;
+  }
+  100% {
+    bottom: 50%;
+    opacity: 0;
+  }
+}
+
+#sprinkles {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f0c75e 0%, #ff7f50 100%);
+  box-shadow:
+    0 0 10px 3px #ff7f50,
+    10px -10px #f0c75e,
+    -10px -10px #ff7f50,
+    10px 10px #f0c75e,
+    -10px 10px #ff7f50;
+  display: none;
+  animation: sprinkleBurst 0.8s ease-out forwards;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+@keyframes sprinkleBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.5);
+  }
+}
   </style>
 </head>
 <body>
@@ -520,6 +573,47 @@ function toggleTheme() {
         floatBtns.style.display = 'none';
       }
     });
+    let lastBurst = 0;
+
+window.addEventListener("scroll", () => {
+  if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10) {
+    if (Date.now() - lastBurst > 4000) {
+      launchBalloon();
+      lastBurst = Date.now();
+    }
+  }
+});
+
+function launchBalloon() {
+  const balloon = document.getElementById("balloon");
+  const sprinkles = document.getElementById("sprinkles");
+  const popSound = document.getElementById("popSound");
+
+  // Reset and show balloon
+  balloon.style.display = "block";
+  balloon.style.animation = "none";
+  sprinkles.style.display = "none";
+
+  void balloon.offsetWidth; // reflow trick to restart animation
+  balloon.style.animation = "floatUp 2s ease-out forwards";
+
+  // POP with sprinkles after 1.8s
+  setTimeout(() => {
+    balloon.style.display = "none";
+    sprinkles.style.display = "block";
+    popSound.currentTime = 0;
+    popSound.play();
+  }, 1800);
+
+  // Hide sprinkles after burst
+  setTimeout(() => {
+    sprinkles.style.display = "none";
+  }, 3000);
+}
   </script>
+    <!-- Balloon & Burst Elements -->
+<div id="balloon" style="display: none;">🎈</div>
+<div id="sprinkles"></div>
+<audio id="popSound" src="https://www.fesliyanstudios.com/play-mp3/4389" preload="auto"></audio>
 </body>
 </html>
