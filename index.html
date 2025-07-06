@@ -622,8 +622,7 @@ window.addEventListener('scroll', () => {
 function launchBalloon() {
   const balloon = document.getElementById("balloon");
   const sprinkles = document.getElementById("sprinkles");
-  const popSound = document.getElementById("popSound");
-
+ 
   // Reset and show balloon
   balloon.style.display = "block";
   balloon.style.animation = "none";
@@ -636,8 +635,6 @@ function launchBalloon() {
   setTimeout(() => {
     balloon.style.display = "none";
     sprinkles.style.display = "block";
-    popSound.currentTime = 0;
-    popSound.play();
   }, 1800);
 
   // Hide sprinkles after burst
