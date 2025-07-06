@@ -185,56 +185,6 @@ body.light-mode .back-to-top {
   background-color: #333;
   color: #fff;
 }
-    /* 🎈 Balloon and Sprinkles Styling */
-#balloon {
-  position: fixed;
-  bottom: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-}
-
-.balloon-shape {
-  width: 40px;
-  height: 55px;
-  background: radial-gradient(circle at 30% 30%, #ff4d6d, #d1002c);
-  border-radius: 50% 50% 50% 50%;
-  position: relative;
-  animation: floatUp 2.5s ease-out forwards;
-}
-
-.balloon-shape::after {
-  content: '';
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 20px;
-  background: #000;
-}
-
-@keyframes floatUp {
-  0% { transform: translateX(-50%) translateY(0); }
-  100% { transform: translateX(-50%) translateY(-500px); }
-}
-
-.sprinkles {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 80px;
-  height: 80px;
-  background-image: radial-gradient(#FFA64D 2px, transparent 2px);
-  background-size: 10px 10px;
-  animation: sprinkle 0.7s ease-out;
-}
-
-@keyframes sprinkle {
-  from { transform: scale(0.3); opacity: 1; }
-  to { transform: scale(2.5); opacity: 0; }
-}
   </style>
 </head>
 <body>
@@ -266,15 +216,12 @@ body.light-mode .back-to-top {
     <a href="tel:+919211791827"><button>📞 Call Us</button></a>
     <a href="https://wa.me/919211791827?text=Hi%20I%20want%20to%20order%20from%20Currchi!" target="_blank"><button> 💬 WhatsApp Us</button></a>
   </div>
+
   <!-- Menu Sections -->
   <div class="menu-container" id="menu">
   <div class="menu-column" id="rolls">
   <h2>🌯 Rolls</h2>
   <img src="rolls.jpg" class="section-image" alt="Currchi Rolls">
-  <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Price</span>
-</div>
   <div class="menu-item"><span>🌿 Soya Chaap Tikka Roll</span><span>₹145</span></div>
   <div class="menu-item"><span>🌿 Paneer Tikka Roll</span><span>₹145</span></div>
   <div class="menu-item"><span>🌿 Afghani Malai Chaap Roll</span><span>₹155</span></div>
@@ -287,12 +234,13 @@ body.light-mode .back-to-top {
   <div class="menu-item"><span>🍖 Chicken Malai Tikka Roll</span><span>₹190</span></div>
   <div class="menu-item"><span>🍖 Mutton Seekh Roll</span><span>₹200</span></div>
 </div>
-  <div class="menu-column" id="momos">
+
+    <div class="menu-column" id="momos">
   <h2>🥟 Momos</h2>
   <img src="momos.jpg" class="section-image" alt="Currchi Momos">
    <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Half (6 Pcs) / Full (10 Pcs) Price</span>
+  <span>Items</span>
+  <span>Half (6 Pcs) / Full (10 Pcs)</span>
 </div>
   <div class="menu-item"><span>🌿 Veg Steam Momos</span><span>₹75 / ₹125</span></div>
   <div class="menu-item"><span>🌿 Veg Tandoori Momos</span><span>₹75 / ₹125</span></div>
@@ -307,10 +255,6 @@ body.light-mode .back-to-top {
     <div class="menu-column" id="combos">
   <h2>🍱 Combos</h2>
   <img src="combos.jpg" class="section-image" alt="Currchi Combo Meals">
-  <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Price</span>
-</div>
   <div class="menu-item"><span>🌿 Mix Veg Combo</span><span>₹135</span></div>
   <div class="menu-item"><span>🌿 Yellow Dal Tadka Combo</span><span>₹135</span></div>
   <div class="menu-item"><span>🌿 Soya Keema Matar Combo</span><span>₹135</span></div>
@@ -333,10 +277,6 @@ body.light-mode .back-to-top {
    <div class="menu-column" id="soups">
   <h2>🍲 Soups</h2>
   <img src="soups.jpg" class="section-image" alt="Currchi Soups">
-   <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Price</span>
-</div>
   <div class="menu-item"><span>🌿 Classic Sweetcorn Soup</span><span>₹75</span></div>
   <div class="menu-item"><span>🌿 Spicy Hot N Sour </span><span>₹75</span></div>
   <div class="menu-item"><span>🌿 Talumein Soup</span><span>₹75</span></div>
@@ -352,10 +292,6 @@ body.light-mode .back-to-top {
    <div class="menu-column" id="breads">
   <h2>🍞 Breads 🌿 </h2>
   <img src="breads.jpg" class="section-image" alt="Currchi Breads">
-  <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Price</span>
-</div>
   <div class="menu-item"><span>Rumali Roti</span><span>₹10</span></div>
   <div class="menu-item"><span>Tandoori Roti</span><span>₹15</span></div>
   <div class="menu-item"><span>Tandoori Butter Roti</span><span>₹18</span></div>
@@ -378,8 +314,8 @@ body.light-mode .back-to-top {
   <h2>🍜 Chinese Starters</h2>
   <img src="chinese.jpg" class="section-image" alt="Currchi Chinese Starters">
   <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Half / Full Price</span>
+  <span>Items</span>
+  <span>Half / Full</span>
 </div>
   <!-- Veg -->
   <div class="menu-item"><span>🌿 Chatpata Chilli Potato</span><span>₹95 / ₹125</span></div>
@@ -404,8 +340,8 @@ body.light-mode .back-to-top {
   <h2>🔥 Tandoori Starters</h2>
   <img src="tandoori.jpg" class="section-image" alt="Currchi Tandoori Starters">
     <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Half / Full Price</span>
+  <span>Items</span>
+  <span>Half / Full</span>
 </div>
   <!-- Veg -->
   <div class="menu-item"><span>🌿 Spicy Masala Soya Tikka</span><span>₹125 / ₹215</span></div>
@@ -436,8 +372,8 @@ body.light-mode .back-to-top {
   <h2>🍽 Main Course</h2>
   <img src="maincourse.jpg" class="section-image" alt="Currchi Main Course Dishes">
     <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Half / Full Price</span>
+  <span>Items</span>
+  <span>Half / Full</span>
 </div>
   <!-- Veg -->
   <div class="menu-item"><span>🌿 Rajma Masala</span><span>₹125 / ₹235</span></div>
@@ -484,8 +420,8 @@ body.light-mode .back-to-top {
   <h2>🍚 Rice & Biryani</h2>
   <img src="rice.jpg" class="section-image" alt="Currchi Rice and Biryani">
     <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Half / Full Price</span>
+  <span>Items</span>
+  <span>Half / Full</span>
 </div>
   <!-- Veg -->
   <div class="menu-item"><span>🌿 Plain Rice</span><span>₹75 / ₹115</span></div>
@@ -503,8 +439,8 @@ body.light-mode .back-to-top {
   <h2>🥗 Raita & Salad 🌿 </h2>
   <img src="salad.jpg" class="section-image" alt="Currchi Raita and Salad">
     <div class="menu-item" style="font-weight: bold; border-bottom: 2px solid #f0c75e;">
-  <span>Currchi Picks</span>
-  <span>Half / Full Price</span>
+  <span>Items</span>
+  <span>Half / Full</span>
 </div>
   <!-- Raita -->
   <div class="menu-item"><span>Plain Curd</span><span>₹45 / ₹65</span></div>
@@ -531,77 +467,6 @@ body.light-mode .back-to-top {
   <button class="back-to-top" onclick="scrollToSection('top')">🔝</button>
 
   <script>
-  let balloonShown = false;
-
-  window.addEventListener("scroll", () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = window.scrollY + window.innerHeight;
-
-    if (scrollTop >= scrollHeight - 10 && !balloonShown) {
-      balloonShown = true;
-
-      const balloon = document.getElementById("balloon");
-      const sprinkles = balloon.querySelector(".sprinkles");
-      const popSound = document.getElementById("popSound");
-
-      balloon.style.display = "block";
-
-      setTimeout(() => {
-        balloon.querySelector(".balloon-shape").style.display = "none";
-        sprinkles.style.display = "block";
-        popSound.play();
-
-        setTimeout(() => {
-          balloon.style.display = "none";
-          sprinkles.style.display = "none";
-          balloon.querySelector(".balloon-shape").style.display = "block";
-          balloonShown = false;
-        }, 1500);
-      }, 2300);
-    }
-  });
-
-  function scrollToSection(id) {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  function toggleTheme() {
-    const body = document.body;
-    const toggleBtn = document.getElementById("themeToggle");
-
-    body.classList.toggle("light-mode");
-
-    if (body.classList.contains("light-mode")) {
-      toggleBtn.textContent = "☽ Dark";
-    } else {
-      toggleBtn.textContent = "🌞 Light";
-    }
-  }
-
-  function generatePDF() {
-    const element = document.body.cloneNode(true);
-    const extras = element.querySelectorAll('.nav-bar, .floating-call-buttons, .back-to-top');
-    extras.forEach(e => e.remove());
-    html2pdf().set({
-      margin: 0.5,
-      filename: 'Currchi_Menu.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    }).from(element).save();
-  }
-
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('.nav-bar');
-    const floatBtns = document.getElementById('floatingCallButtons');
-    if (window.scrollY > nav.offsetTop + nav.offsetHeight) {
-      floatBtns.style.display = 'flex';
-    } else {
-      floatBtns.style.display = 'none';
-    }
-  });
-</script>
     function scrollToSection(id) {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -643,11 +508,5 @@ function toggleTheme() {
       }
     });
   </script>
-    <!-- 🎈 Balloon Effect -->
-<div id="balloon" style="display:none;">
-  <div class="balloon-shape"></div>
-  <div class="sprinkles"></div>
-  <audio id="popSound" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA" preload="auto"></audio>
-</div>
 </body>
 </html>
