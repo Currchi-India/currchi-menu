@@ -185,6 +185,56 @@ body.light-mode .back-to-top {
   background-color: #333;
   color: #fff;
 }
+    /* 🎈 Balloon and Sprinkles Styling */
+#balloon {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+
+.balloon-shape {
+  width: 40px;
+  height: 55px;
+  background: radial-gradient(circle at 30% 30%, #ff4d6d, #d1002c);
+  border-radius: 50% 50% 50% 50%;
+  position: relative;
+  animation: floatUp 2.5s ease-out forwards;
+}
+
+.balloon-shape::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: #000;
+}
+
+@keyframes floatUp {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-50%) translateY(-500px); }
+}
+
+.sprinkles {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  background-image: radial-gradient(#FFA64D 2px, transparent 2px);
+  background-size: 10px 10px;
+  animation: sprinkle 0.7s ease-out;
+}
+
+@keyframes sprinkle {
+  from { transform: scale(0.3); opacity: 1; }
+  to { transform: scale(2.5); opacity: 0; }
+}
   </style>
 </head>
 <body>
@@ -481,6 +531,39 @@ body.light-mode .back-to-top {
   <button class="back-to-top" onclick="scrollToSection('top')">🔝</button>
 
   <script>
+    <script>
+let balloonShown = false;
+
+window.addEventListener("scroll", () => {
+  const scrollHeight = document.documentElement.scrollHeight;
+  const scrollTop = window.scrollY + window.innerHeight;
+
+  if (scrollTop >= scrollHeight - 10 && !balloonShown) {
+    balloonShown = true;
+
+    const balloon = document.getElementById("balloon");
+    const sprinkles = balloon.querySelector(".sprinkles");
+    const popSound = document.getElementById("popSound");
+
+    balloon.style.display = "block";
+
+    // After 2.3s float time, simulate burst
+    setTimeout(() => {
+      balloon.querySelector(".balloon-shape").style.display = "none";
+      sprinkles.style.display = "block";
+      popSound.play();
+
+      // Reset after animation
+      setTimeout(() => {
+        balloon.style.display = "none";
+        sprinkles.style.display = "none";
+        balloon.querySelector(".balloon-shape").style.display = "block";
+        balloonShown = false;
+      }, 1500);
+    }, 2300);
+  }
+});
+</script>
     function scrollToSection(id) {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -522,5 +605,11 @@ function toggleTheme() {
       }
     });
   </script>
+    <!-- 🎈 Balloon Effect -->
+<div id="balloon" style="display:none;">
+  <div class="balloon-shape"></div>
+  <div class="sprinkles"></div>
+  <audio id="popSound" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA" preload="auto"></audio>
+</div>
 </body>
 </html>
