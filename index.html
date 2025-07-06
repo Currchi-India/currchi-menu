@@ -531,38 +531,76 @@ body.light-mode .back-to-top {
   <button class="back-to-top" onclick="scrollToSection('top')">🔝</button>
 
   <script>
-    <script>
-let balloonShown = false;
+  let balloonShown = false;
 
-window.addEventListener("scroll", () => {
-  const scrollHeight = document.documentElement.scrollHeight;
-  const scrollTop = window.scrollY + window.innerHeight;
+  window.addEventListener("scroll", () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY + window.innerHeight;
 
-  if (scrollTop >= scrollHeight - 10 && !balloonShown) {
-    balloonShown = true;
+    if (scrollTop >= scrollHeight - 10 && !balloonShown) {
+      balloonShown = true;
 
-    const balloon = document.getElementById("balloon");
-    const sprinkles = balloon.querySelector(".sprinkles");
-    const popSound = document.getElementById("popSound");
+      const balloon = document.getElementById("balloon");
+      const sprinkles = balloon.querySelector(".sprinkles");
+      const popSound = document.getElementById("popSound");
 
-    balloon.style.display = "block";
+      balloon.style.display = "block";
 
-    // After 2.3s float time, simulate burst
-    setTimeout(() => {
-      balloon.querySelector(".balloon-shape").style.display = "none";
-      sprinkles.style.display = "block";
-      popSound.play();
-
-      // Reset after animation
       setTimeout(() => {
-        balloon.style.display = "none";
-        sprinkles.style.display = "none";
-        balloon.querySelector(".balloon-shape").style.display = "block";
-        balloonShown = false;
-      }, 1500);
-    }, 2300);
+        balloon.querySelector(".balloon-shape").style.display = "none";
+        sprinkles.style.display = "block";
+        popSound.play();
+
+        setTimeout(() => {
+          balloon.style.display = "none";
+          sprinkles.style.display = "none";
+          balloon.querySelector(".balloon-shape").style.display = "block";
+          balloonShown = false;
+        }, 1500);
+      }, 2300);
+    }
+  });
+
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
-});
+
+  function toggleTheme() {
+    const body = document.body;
+    const toggleBtn = document.getElementById("themeToggle");
+
+    body.classList.toggle("light-mode");
+
+    if (body.classList.contains("light-mode")) {
+      toggleBtn.textContent = "☽ Dark";
+    } else {
+      toggleBtn.textContent = "🌞 Light";
+    }
+  }
+
+  function generatePDF() {
+    const element = document.body.cloneNode(true);
+    const extras = element.querySelectorAll('.nav-bar, .floating-call-buttons, .back-to-top');
+    extras.forEach(e => e.remove());
+    html2pdf().set({
+      margin: 0.5,
+      filename: 'Currchi_Menu.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    }).from(element).save();
+  }
+
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.nav-bar');
+    const floatBtns = document.getElementById('floatingCallButtons');
+    if (window.scrollY > nav.offsetTop + nav.offsetHeight) {
+      floatBtns.style.display = 'flex';
+    } else {
+      floatBtns.style.display = 'none';
+    }
+  });
 </script>
     function scrollToSection(id) {
       const el = document.getElementById(id);
