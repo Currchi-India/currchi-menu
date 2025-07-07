@@ -242,6 +242,25 @@ body.light-mode .back-to-top {
   transform: rotate(-2deg);
   display: inline-block;
 }
+    <style>
+.tilt-text {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #f0c75e;
+  text-align: center;
+  animation: tilt 1.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes tilt {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(3deg); }
+  50%  { transform: rotate(0deg); }
+  75%  { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+</style>
   </style>
 </head>
 <body>
@@ -564,8 +583,7 @@ body.light-mode .back-to-top {
   <p>📞 <strong>Hosting a party? We cater events & bulk orders – Call us for deals! +91 9211791827</strong></p>
   <p>💬 <em>Order Now via above WhatsApp or Call icons – We're Just a Tap Away!”</em></p>
   <p>📍 <a href="https://maps.app.goo.gl/vV4UCGasmaPHKLAT8" target="_blank" style="color: inherit; text-decoration: underline;">Find us on Google Maps</a></p>
-  <p id="bookmark-line">
-  📲 <strong>Bookmark this menu or Add to Home Screen for easy reorders!</strong></p>
+  <div class="tilt-text">📲 Bookmark this menu or Add to Home Screen for easy reorders!</div>
   <p><strong>&#174;</strong> 2025 CURRCHI – Full on Desi</p>
   <p><em>Chal Currchi se khae yaar..</em></p>
 </div>
