@@ -260,9 +260,23 @@ body.light-mode .back-to-top {
   75%  { transform: rotate(-3deg); }
   100% { transform: rotate(0deg); }
 }
+    <style>
+.tilt-text {
+  display: inline-block;
+  font-size: 1.1em;
+  color: #333;
+  animation: tilt 1.2s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes tilt {
+  0% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(-2deg); }
+}
 </style>
-  </style>
-</head>
+</style>
+ </head>
 <body>
   <header id="top">
     <img src="logo.png" alt="Currchi Restaurant Logo">
@@ -583,7 +597,7 @@ body.light-mode .back-to-top {
   <p>📞 <strong>Hosting a party? We cater events & bulk orders – Call us for deals! +91 9211791827</strong></p>
   <p>💬 <em>Order Now via above WhatsApp or Call icons – We're Just a Tap Away!”</em></p>
   <p>📍 <a href="https://maps.app.goo.gl/vV4UCGasmaPHKLAT8" target="_blank" style="color: inherit; text-decoration: underline;">Find us on Google Maps</a></p>
-  <div class="tilt-text">📲 Bookmark this menu or Add to Home Screen for easy reorders!</div>
+  <p id="bookmark-line" class="tilt-text">📲 Bookmark this menu or Add to Home Screen for easy reorders!</p>  
   <p><strong>&#174;</strong> 2025 CURRCHI – Full on Desi</p>
   <p><em>Chal Currchi se khae yaar..</em></p>
 </div>
