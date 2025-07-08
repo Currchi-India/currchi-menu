@@ -647,14 +647,7 @@ input:checked + .slider:before {
   <!-- Back to Top -->
   <button class="back-to-top" onclick="scrollToSection('top')">🔝</button>
 
-  <script>
-    function scrollToSection(id) {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-    </script>
-    function generatePDF() {
+     function generatePDF() {
       const element = document.body.cloneNode(true);
       const extras = element.querySelectorAll('.nav-bar, .floating-call-buttons, .back-to-top');
       extras.forEach(e => e.remove());
@@ -732,6 +725,13 @@ function launchBalloon() {
     document.body.classList.toggle('light-mode');
   });
 </script>
-
+ <script>
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
 </body>
 </html>
