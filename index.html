@@ -260,6 +260,58 @@ body.light-mode .back-to-top {
   75%  { transform: rotate(-3deg); }
   100% { transform: rotate(0deg); }
 }
+    .theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 34px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  background: url('https://i.imgur.com/bAQpUuU.png') no-repeat center;
+  background-size: cover;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 34px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 28px;
+  width: 28px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background: url('https://i.imgur.com/z1sISL7.png') no-repeat center;
+  background-size: cover;
+}
+
+input:checked + .slider:before {
+  transform: translateX(36px);
+}
   </style>
  </head>
 <body>
@@ -283,7 +335,12 @@ body.light-mode .back-to-top {
     <button onclick="generatePDF()">📄 Download Menu</button>
     <a href="tel:+919211791827"><button>📞 Call</button></a>
     <a href="https://wa.me/919899427503?text=Hi%20Currchi%20-%20Full%20on%20Desi!!%20I%20want%20to%20place%20an%20order." target="_blank"><button> 💬 WhatsApp</button></a>
-    <button onclick="toggleTheme()" id="themeToggle">☽ Light</button>
+    <div class="theme-switch-wrapper">
+  <label class="theme-switch">
+    <input type="checkbox" id="theme-toggle-checkbox">
+    <span class="slider"></span>
+  </label>
+</div>
   </div>
 
   <!-- Floating Call Buttons -->
@@ -595,18 +652,6 @@ body.light-mode .back-to-top {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
-function toggleTheme() {
-  const body = document.body;
-  const toggleBtn = document.getElementById("themeToggle");
-
-  body.classList.toggle("light-mode");
-
-  // Update icon and label based on current mode
-  if (body.classList.contains("light-mode")) {
-  toggleBtn.textContent = "🌞 Dark";
-} else {
-  toggleBtn.textContent = "☽ Light";
-}
 }
     function generatePDF() {
       const element = document.body.cloneNode(true);
@@ -681,5 +726,11 @@ function launchBalloon() {
     <!-- Balloon & Burst Elements -->
 <div id="balloon" style="display: none;">🎈🎈</div>
 <div id="sprinkles"></div>
+    <script>
+  document.getElementById('theme-toggle-checkbox').addEventListener('change', function () {
+    document.body.classList.toggle('light-mode');
+  });
+</script>
+
 </body>
 </html>
