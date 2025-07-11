@@ -427,9 +427,12 @@ input:checked + .slider:before {
 <div class="menu-item">
   <span>🌿 Soya Chaap Tikka Roll</span>
   <span>
-    ₹145 
-    <button onclick="decreaseQty(this)">➖</button><input type="number" min="1" value="1" class="qty-input" /><button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button>
-</span>
+    ₹145
+    <button onclick="decreaseQty(this)">➖</button>
+    <input type="number" min="1" value="1" class="qty-input" />
+    <button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button>
+  </span>
+</div>
 </div>
   <div class="menu-item">
   <span>🌿 Paneer Tikka Roll</span>
@@ -866,13 +869,14 @@ function launchBalloon() {
     <script>
     const cart = {};
 
-  function decreaseQty(btn) {
-    const qtyInput = btn.nextElementSibling;
-    let qty = parseInt(qtyInput.value);
-    if (qty > 1) {
-      qtyInput.value = qty - 1;
-    }
+ function decreaseQty(btn) {
+  const parent = btn.parentElement;
+  const qtyInput = parent.querySelector('.qty-input');
+  let qty = parseInt(qtyInput.value);
+  if (qty > 1) {
+    qtyInput.value = qty - 1;
   }
+}
 
   function addToCart(item, price, btn) {
     const qtyInput = btn.previousElementSibling;
