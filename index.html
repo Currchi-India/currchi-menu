@@ -9,6 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
+    #cart-panel::-webkit-scrollbar {
+  width: 6px;
+}
+#cart-panel::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 6px;
+}
     body {
       margin: 0;
       padding: 0;
@@ -363,7 +370,8 @@ input:checked + .slider:before {
   <span>Items</span>
   <span>Price</span>
 </div>
-  <div class="menu-item"><span>🌿 Soya Chaap Tikka Roll</span><span>₹145</span></div>
+  <div class="menu-item"><span>🌿 Soya Chaap Tikka Roll</span><span>₹145<input type="number" min="1" value="1" class="qty-input" />
+  <button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button></span></div>
   <div class="menu-item"><span>🌿 Paneer Tikka Roll</span><span>₹145</span></div>
   <div class="menu-item"><span>🌿 Afghani Malai Chaap Roll</span><span>₹155</span></div>
   <div class="menu-item"><span>🌿 Malai Paneer Roll</span><span>₹155</span></div>
@@ -738,6 +746,90 @@ function launchBalloon() {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+</script>
+    <!-- Cart Panel (Hidden by default) -->
+<div id="cart-panel" style="
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 280px;
+  max-height: 380px;
+  overflow-y: auto;
+  background: #fff7d6;
+  color: #000;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  z-index: 9999;
+  font-size: 0.95rem;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #fff7d6;
+">
+  <strong>🛒 Your Cart:</strong>
+  <ul id="cart-items" style="margin: 0.5rem 0; padding: 0; list-style: none;"></ul>
+  <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
+  <a id="whatsapp-link" target="_blank">
+    <button style="
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    ">Place Order on WhatsApp</button>
+  </a>
+</div>
+    <script>
+  const cart = {};
+
+  function addToCart(item, price, btn) {
+    const qtyInput = btn.previousElementSibling;
+    const qty = parseInt(qtyInput.value);
+
+    if (isNaN(qty) || qty <= 0) {
+      alert("Please enter a valid quantity.");
+      return;
+    }
+
+    if (cart[item]) {
+      cart[item].qty += qty;
+    } else {
+      cart[item] = { price, qty };
+    }
+
+    qtyInput.value = 1;
+    updateCartDisplay();
+  }
+
+  function updateCartDisplay() {
+    const cartList = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const whatsappLink = document.getElementById('whatsapp-link');
+    const cartPanel = document.getElementById('cart-panel');
+
+    cartList.innerHTML = '';
+    let total = 0;
+    let message = `Hi Currchi - Full on Desi!! I want to place the following order:\n\n`;
+
+    for (let item in cart) {
+      const { price, qty } = cart[item];
+      const lineTotal = price * qty;
+      total += lineTotal;
+      message += `• ${item} x ${qty} = ₹${lineTotal}\n`;
+
+      const li = document.createElement('li');
+      li.textContent = `${item} x ${qty} = ₹${lineTotal}`;
+      cartList.appendChild(li);
+    }
+
+    cartPanel.style.display = total > 0 ? 'block' : 'none';
+    cartTotal.textContent = total;
+    message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
+    whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
   }
 </script>
 </body>
