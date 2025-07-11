@@ -872,8 +872,7 @@ function launchBalloon() {
   function addToCart(btn) {
     const menuItem = btn.closest('.menu-item');
     const itemName = menuItem.querySelector('.item-name').textContent.trim();
-    const priceText = menuItem.innerText.match(/₹(\d+)/);
-    const price = priceText ? parseInt(priceText[1]) : 0;
+    const price = parseInt(menuItem.querySelector('span').textContent.replace(/[^\d]/g, ''));
     const qtyInput = menuItem.querySelector('.qty-input');
     const qty = parseInt(qtyInput.value);
 
@@ -882,23 +881,25 @@ function launchBalloon() {
       return;
     }
 
-    if (cart[itemName]) {
-      cart[itemName].qty += qty;
-    } else {
-      cart[itemName] = { price, qty };
-    }
-
-    qtyInput.value = 1; // reset input after adding
+    // Add or update cart item
+    cart[itemName] = { price, qty };
     updateCartDisplay();
   }
 
   function decreaseQty(btn) {
     const menuItem = btn.closest('.menu-item');
+    const itemName = menuItem.querySelector('.item-name').textContent.trim();
     const qtyInput = menuItem.querySelector('.qty-input');
     let qty = parseInt(qtyInput.value);
 
     if (qty > 1) {
-      qtyInput.value = qty - 1;
+      qty -= 1;
+      qtyInput.value = qty;
+
+      if (cart[itemName]) {
+        cart[itemName].qty = qty;
+        updateCartDisplay();
+      }
     }
   }
 
@@ -924,21 +925,13 @@ function launchBalloon() {
     }
 
     cartPanel.style.display = total > 0 ? 'block' : 'none';
-
-    message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
     cartTotal.textContent = total;
+    message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
     whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
   }
 
   function removeItem(item) {
     delete cart[item];
-    updateCartDisplay();
-  }
-
-  function clearCart() {
-    for (let item in cart) {
-      delete cart[item];
-    }
     updateCartDisplay();
   }
 </script>
