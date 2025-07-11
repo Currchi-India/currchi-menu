@@ -9,9 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
-  #cart-panel {
-  position: sticky;
+    body {
+  margin: 0;
+  padding: 0;
+  background-color: #111;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  padding-bottom: 300px; /* space for cart */
+}
+ #cart-panel {
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   background: #fff8dc;
   border-radius: 20px 20px 0 0;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
@@ -21,28 +31,53 @@
   margin: 0 auto;
   max-height: 250px;
   overflow-y: auto;
-  display: none; /* Hidden by default */
-  transition: all 0.3s ease-in-out; /* 👈 this line */
+  display: none;
+  transition: all 0.3s ease-in-out;
 }
-  #cart-panel::-webkit-scrollbar {
-    width: 6px;
-  }
 
-  #cart-panel::-webkit-scrollbar-thumb {
-    background: #bbb;
-    border-radius: 6px;
-  }
+#cart-panel::-webkit-scrollbar {
+  width: 6px;
+}
+#cart-panel::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 6px;
+}
 
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: #111;
-    color: #fff;
-    font-family: 'Roboto', sans-serif;
-    padding-bottom: 300px; /* Leave space for cart panel at bottom */
-  }
-
-  header {
+.qty-input {
+  width: 40px;
+  text-align: center;
+  margin: 0 4px;
+  border-radius: 4px;
+}
+button {
+  cursor: pointer;
+}
+.remove-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+}
+.clear-btn {
+  background: #f44336;
+  color: white;
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+.whatsapp-btn {
+  background: green;
+  color: white;
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+   header {
   background-color: #FFF7D6;
   text-align: center;
   padding: 0.5rem 0;
@@ -897,6 +932,84 @@ function removeItem(item) {
   delete cart[item];
   updateCartDisplay();
 }
+</script>
+    <div id="cart-panel">
+  <p>🛒 <strong>Your Cart:</strong></p>
+  <ul id="cart-items" style="list-style: none; padding-left: 0;"></ul>
+  <p><strong>Total:</strong> ₹<span id="cart-total">0</span></p>
+  <button class="clear-btn" onclick="clearCart()">🧹 Clear Cart</button>
+  <a id="whatsapp-link" target="_blank">
+    <button class="whatsapp-btn">Place Order on WhatsApp</button>
+  </a>
+</div>
+    <script>
+  const cart = {};
+
+  function decreaseQty(btn) {
+    const qtyInput = btn.nextElementSibling;
+    let qty = parseInt(qtyInput.value);
+    if (qty > 1) {
+      qtyInput.value = qty - 1;
+    }
+  }
+
+  function addToCart(item, price, btn) {
+    const qtyInput = btn.previousElementSibling;
+    const qty = parseInt(qtyInput.value);
+
+    if (!qty || qty < 1) {
+      alert("Please enter a valid quantity");
+      return;
+    }
+
+    if (cart[item]) {
+      cart[item].qty += qty;
+    } else {
+      cart[item] = { price, qty };
+    }
+
+    updateCartDisplay();
+  }
+
+  function updateCartDisplay() {
+    const cartList = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const whatsappLink = document.getElementById('whatsapp-link');
+    const cartPanel = document.getElementById('cart-panel');
+
+    cartList.innerHTML = '';
+    let total = 0;
+    let message = `Hi Currchi - Full on Desi!! I want to place the following order:\n\n`;
+
+    for (let item in cart) {
+      const { price, qty } = cart[item];
+      const lineTotal = price * qty;
+      total += lineTotal;
+      message += `• ${item} x ${qty} = ₹${lineTotal}\n`;
+
+      const li = document.createElement('li');
+      li.innerHTML = `${item} x ${qty} = ₹${lineTotal} <button class="remove-btn" onclick="removeItem('${item}')">❌</button>`;
+      cartList.appendChild(li);
+    }
+
+    cartPanel.style.display = total > 0 ? 'block' : 'none';
+
+    message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
+    cartTotal.textContent = total;
+    whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
+  }
+
+  function removeItem(item) {
+    delete cart[item];
+    updateCartDisplay();
+  }
+
+  function clearCart() {
+    for (let item in cart) {
+      delete cart[item];
+    }
+    updateCartDisplay();
+  }
 </script>
 </body>
 </html>
