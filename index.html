@@ -763,44 +763,49 @@ function launchBalloon() {
     const qtyInput = btn.previousElementSibling;
     const qty = parseInt(qtyInput.value);
 
+    if (isNaN(qty) || qty <= 0) {
+      alert("Please enter a valid quantity.");
+      return;
+    }
+
     if (cart[item]) {
       cart[item].qty += qty;
     } else {
       cart[item] = { price, qty };
     }
 
+    qtyInput.value = 1; // Reset input
     updateCartDisplay();
   }
 
   function updateCartDisplay() {
-  const cartList = document.getElementById('cart-items');
-  const cartTotal = document.getElementById('cart-total');
-  const whatsappLink = document.getElementById('whatsapp-link');
-  const cartPanel = document.getElementById('cart-panel');
+    const cartList = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const whatsappLink = document.getElementById('whatsapp-link');
+    const cartPanel = document.getElementById('cart-panel');
 
-  cartList.innerHTML = '';
-  let total = 0;
-  let message = `Hi Currchi - Full on Desi!! I want to place the following order:\n\n`;
+    cartList.innerHTML = '';
+    let total = 0;
+    let message = `Hi Currchi - Full on Desi!! I want to place the following order:\n\n`;
 
-  for (let item in cart) {
-    const { price, qty } = cart[item];
-    const lineTotal = price * qty;
-    total += lineTotal;
-    message += `• ${item} x ${qty} = ₹${lineTotal}\n`;
+    for (let item in cart) {
+      const { price, qty } = cart[item];
+      const lineTotal = price * qty;
+      total += lineTotal;
+      message += `• ${item} x ${qty} = ₹${lineTotal}\n`;
 
-    const li = document.createElement('li');
-    li.textContent = `${item} x ${qty} = ₹${lineTotal}`;
-    cartList.appendChild(li);
+      const li = document.createElement('li');
+      li.textContent = `${item} x ${qty} = ₹${lineTotal}`;
+      cartList.appendChild(li);
+    }
+
+    cartPanel.style.display = total > 0 ? 'block' : 'none';
+
+    message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
+
+    cartTotal.textContent = total;
+    whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
   }
-
-  // Show cart panel if there's at least one item
-  cartPanel.style.display = total > 0 ? 'block' : 'none';
-
-  message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
-
-  cartTotal.textContent = total;
-  whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
-}
 </script>
 </body>
 </html>
