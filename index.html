@@ -370,8 +370,14 @@ input:checked + .slider:before {
   <span>Items</span>
   <span>Price</span>
 </div>
-  <div class="menu-item"><span>🌿 Soya Chaap Tikka Roll</span><span>₹145<input type="number" min="1" value="1" class="qty-input" />
-  <button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button></span></div>
+ <div class="menu-item">
+  <span>🌿 Soya Chaap Tikka Roll</span>
+  <span>
+    ₹145
+    <input type="number" min="1" value="1" class="qty-input" style="width: 32px; margin: 0 4px;" />
+    <button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button>
+  </span>
+</div>
   <div class="menu-item"><span>🌿 Paneer Tikka Roll</span><span>₹145</span></div>
   <div class="menu-item"><span>🌿 Afghani Malai Chaap Roll</span><span>₹155</span></div>
   <div class="menu-item"><span>🌿 Malai Paneer Roll</span><span>₹155</span></div>
@@ -770,18 +776,31 @@ function launchBalloon() {
   <strong>🛒 Your Cart:</strong>
   <ul id="cart-items" style="margin: 0.5rem 0; padding: 0; list-style: none;"></ul>
   <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
-  <a id="whatsapp-link" target="_blank">
-    <button style="
-      background: #28a745;
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-    ">Place Order on WhatsApp</button>
-  </a>
+
+<button onclick="clearCart()" style="
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 0.5rem;
+">🧹 Clear Cart</button>
+
+<a id="whatsapp-link" target="_blank">
+  <button style="
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+  ">Place Order on WhatsApp</button>
+</a>
 </div>
     <script>
   const cart = {};
@@ -811,6 +830,18 @@ function launchBalloon() {
     const whatsappLink = document.getElementById('whatsapp-link');
     const cartPanel = document.getElementById('cart-panel');
 
+function clearCart() {
+  for (let item in cart) {
+    delete cart[item];
+  }
+  updateCartDisplay();
+}
+
+function removeItem(item) {
+  delete cart[item];
+  updateCartDisplay();
+}
+
     cartList.innerHTML = '';
     let total = 0;
     let message = `Hi Currchi - Full on Desi!! I want to place the following order:\n\n`;
@@ -822,8 +853,8 @@ function launchBalloon() {
       message += `• ${item} x ${qty} = ₹${lineTotal}\n`;
 
       const li = document.createElement('li');
-      li.textContent = `${item} x ${qty} = ₹${lineTotal}`;
-      cartList.appendChild(li);
+li.innerHTML = `${item} x ${qty} = ₹${lineTotal} <button onclick="removeItem('${item}')" style="margin-left:10px; background:#ccc; border:none; border-radius:6px; padding:0 6px; cursor:pointer;">❌</button>`;
+cartList.appendChild(li);
     }
 
     cartPanel.style.display = total > 0 ? 'block' : 'none';
@@ -831,6 +862,17 @@ function launchBalloon() {
     message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
     whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
   }
+      function clearCart() {
+  for (let item in cart) {
+    delete cart[item];
+  }
+  updateCartDisplay();
+}
+
+function removeItem(item) {
+  delete cart[item];
+  updateCartDisplay();
+}
 </script>
 </body>
 </html>
