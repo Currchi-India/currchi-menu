@@ -10,21 +10,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
   #cart-panel {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #fff8dc;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
-    padding: 1rem;
-    z-index: 999;
-    max-width: 400px;
-    margin: 0 auto;
-    max-height: 250px;
-    overflow-y: auto;
-  }
-
+  position: sticky;
+  bottom: 0;
+  background: #fff8dc;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  z-index: 999;
+  max-width: 400px;
+  margin: 0 auto;
+  max-height: 250px;
+  overflow-y: auto;
+  display: none; /* Hidden by default */
+  transition: all 0.3s ease-in-out; /* 👈 this line */
+}
   #cart-panel::-webkit-scrollbar {
     width: 6px;
   }
@@ -40,7 +39,7 @@
     background-color: #111;
     color: #fff;
     font-family: 'Roboto', sans-serif;
-    padding-bottom: 180px; /* Leave space for cart panel at bottom */
+    padding-bottom: 300px; /* Leave space for cart panel at bottom */
   }
 
   header {
@@ -390,12 +389,12 @@ input:checked + .slider:before {
   <span>Items</span>
   <span>Price</span>
 </div>
- <div class="menu-item">
+<div class="menu-item">
   <span>🌿 Soya Chaap Tikka Roll</span>
   <span>
-    ₹145
-    <input type="number" min="1" value="1" class="qty-input" style="width: 32px; margin: 0 4px;" />
+    ₹145 
     <button onclick="decreaseQty(this)">➖</button>
+    <input type="number" min="1" value="1" class="qty-input" />
     <button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button>
   </span>
 </div>
