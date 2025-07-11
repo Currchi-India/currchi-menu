@@ -45,35 +45,45 @@
 .qty-control {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: #f8f8f8;
-  padding: 4px 12px;
-  border-radius: 18px;
+  padding: 2px 10px;
+  border-radius: 14px;
   border: 1px solid #ccc;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  height: 32px;
 }
 
 .qty-control button {
   background: #f0c75e;
   border: none;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  font-size: 1rem;
+  width: 24px;
+  height: 24px;
+  font-size: 0.85rem;
   cursor: pointer;
   font-weight: bold;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .qty-display {
-  min-width: 20px;
+  min-width: 18px;
   text-align: center;
   font-weight: bold;
+  color: #000;
 }
-.qty-input {
-  width: 40px;
-  text-align: center;
-  margin: 0 4px;
-  border-radius: 4px;
+
+/* When dark theme is active */
+body.dark-theme .qty-control {
+  background: #333;
+  border-color: #555;
+}
+
+body.dark-theme .qty-display {
+  color: #fff;
 }
 button {
   cursor: pointer;
