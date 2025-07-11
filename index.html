@@ -425,21 +425,22 @@ input:checked + .slider:before {
   <span>Price</span>
 </div>
 <div class="menu-item">
-  <span>🌿 Soya Chaap Tikka Roll</span>
+  <span class="item-name">🌿 Soya Chaap Tikka Roll</span>
   <span>
     ₹145
-    <button onclick="decreaseQty('🌿 Soya Chaap Tikka Roll', 145, this)">➖</button>
-    <input type="number" min="1" value="1" class="qty-input" />
-    <button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button>
-  </span>
-</div>
-  <div class="menu-item">
-  <span>🌿 Paneer Tikka Roll</span>
-  <span>
-    ₹145 
     <button onclick="decreaseQty(this)">➖</button>
     <input type="number" min="1" value="1" class="qty-input" />
-    <button onclick="addToCart('🌿 Paneer Tikka Roll', 145, this)">➕</button>
+    <button onclick="addToCart(this)">➕</button>
+  </span>
+</div>
+
+<div class="menu-item">
+  <span class="item-name">🌿 Paneer Tikka Roll</span>
+  <span>
+    ₹145
+    <button onclick="decreaseQty(this)">➖</button>
+    <input type="number" min="1" value="1" class="qty-input" />
+    <button onclick="addToCart(this)">➕</button>
   </span>
 </div>
   <div class="menu-item"><span>🌿 Afghani Malai Chaap Roll</span><span>₹155</span></div>
@@ -866,29 +867,14 @@ function launchBalloon() {
 </a>
 </div>
     <script>
-    const cart = {};
+  const cart = {};
 
- function decreaseQty(item, price, btn) {
-  const parent = btn.parentElement;
-  const qtyInput = parent.querySelector('.qty-input');
-  let qty = parseInt(qtyInput.value);
-
-  if (qty > 1) {
-    qtyInput.value = qty - 1;
-
-    // If item already exists in cart, reduce from there too
-    if (cart[item]) {
-      cart[item].qty -= 1;
-      if (cart[item].qty <= 0) {
-        delete cart[item];
-      }
-      updateCartDisplay();
-    }
-  }
-}
-
-  function addToCart(item, price, btn) {
-    const qtyInput = btn.previousElementSibling;
+  function addToCart(btn) {
+    const menuItem = btn.closest('.menu-item');
+    const itemName = menuItem.querySelector('.item-name').textContent.trim();
+    const priceText = menuItem.innerText.match(/₹(\d+)/);
+    const price = priceText ? parseInt(priceText[1]) : 0;
+    const qtyInput = menuItem.querySelector('.qty-input');
     const qty = parseInt(qtyInput.value);
 
     if (!qty || qty < 1) {
@@ -896,13 +882,24 @@ function launchBalloon() {
       return;
     }
 
-    if (cart[item]) {
-      cart[item].qty += qty;
+    if (cart[itemName]) {
+      cart[itemName].qty += qty;
     } else {
-      cart[item] = { price, qty };
+      cart[itemName] = { price, qty };
     }
 
+    qtyInput.value = 1; // reset input after adding
     updateCartDisplay();
+  }
+
+  function decreaseQty(btn) {
+    const menuItem = btn.closest('.menu-item');
+    const qtyInput = menuItem.querySelector('.qty-input');
+    let qty = parseInt(qtyInput.value);
+
+    if (qty > 1) {
+      qtyInput.value = qty - 1;
+    }
   }
 
   function updateCartDisplay() {
@@ -945,5 +942,10 @@ function launchBalloon() {
     updateCartDisplay();
   }
 </script>
+    <div id="cart-panel" style="position:fixed;bottom:0;width:100%;background:#fff;padding:10px;border-top:2px solid #ccc;display:none;z-index:999;">
+  <ul id="cart-items" style="list-style:none;padding:0;margin:0;"></ul>
+  <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
+  <a id="whatsapp-link" target="_blank" href="#" style="display:inline-block;margin-top:8px;padding:6px 12px;background:#25d366;color:white;text-decoration:none;border-radius:6px;">📲 Send Order on WhatsApp</a>
+</div>
 </body>
 </html>
