@@ -363,8 +363,7 @@ input:checked + .slider:before {
   <span>Items</span>
   <span>Price</span>
 </div>
-  <div class="menu-item"><span>🌿 Soya Chaap Tikka Roll</span><span>₹145<input type="number" min="1" value="1" class="qty-input" />
-<button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button></span></div>
+  <div class="menu-item"><span>🌿 Soya Chaap Tikka Roll</span><span>₹145</span></div>
   <div class="menu-item"><span>🌿 Paneer Tikka Roll</span><span>₹145</span></div>
   <div class="menu-item"><span>🌿 Afghani Malai Chaap Roll</span><span>₹155</span></div>
   <div class="menu-item"><span>🌿 Malai Paneer Roll</span><span>₹155</span></div>
@@ -637,75 +636,9 @@ input:checked + .slider:before {
   <!-- Salad -->
   <div class="menu-item"><span>Green Salad</span><span>-  / ₹65</span></div>
 </div>
- <div id="cart-panel" style="
-  display: none;  /* ← hide initially */
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 320px;
-  max-height: 400px;
-  overflow-y: auto;
-  background: #fff7d6;
-  color: #000;
-  padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  border-radius: 12px;
-  z-index: 9999;
-  font-size: 0.95rem;
-  scrollbar-width: thin;
-  scrollbar-color: #ccc #fff7d6;
-">
-   <script>
-  const cart = {};
 
-  function addToCart(item, price, btn) {
-    const qtyInput = btn.previousElementSibling;
-    const qty = parseInt(qtyInput.value);
-
-    if (isNaN(qty) || qty <= 0) {
-      alert("Please enter a valid quantity.");
-      return;
-    }
-
-    if (cart[item]) {
-      cart[item].qty += qty;
-    } else {
-      cart[item] = { price, qty };
-    }
-
-    qtyInput.value = 1; // Reset input
-    updateCartDisplay();
-  }
-
-  function updateCartDisplay() {
-    const cartList = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const whatsappLink = document.getElementById('whatsapp-link');
-    const cartPanel = document.getElementById('cart-panel');
-
-    cartList.innerHTML = '';
-    let total = 0;
-    let message = `Hi Currchi - Full on Desi!! I want to place the following order:\n\n`;
-
-    for (let item in cart) {
-      const { price, qty } = cart[item];
-      const lineTotal = price * qty;
-      total += lineTotal;
-      message += `• ${item} x ${qty} = ₹${lineTotal}\n`;
-
-      const li = document.createElement('li');
-      li.textContent = `${item} x ${qty} = ₹${lineTotal}`;
-      cartList.appendChild(li);
-    }
-
-    cartPanel.style.display = total > 0 ? 'block' : 'none';
-
-    message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
-
-    cartTotal.textContent = total;
-    whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
-  }
-</script>
+    
+  <!-- Footer -->
 <div class="footer">
   <p>📍 <strong>CURRCHI</strong> || Ramesh Nagar, New Delhi ||</p>
   <p>⏰ <strong>Open Daily:</strong> 2:00 PM – 12:00 AM</p>
