@@ -827,23 +827,22 @@ function launchBalloon() {
   const cart = {};
 
   function addToCart(item, price, btn) {
-    const qtyInput = btn.previousElementSibling;
-    const qty = parseInt(qtyInput.value);
+  const qtyInput = btn.previousElementSibling;
+  let qty = parseInt(qtyInput.value);
 
-    if (isNaN(qty) || qty <= 0) {
-      alert("Please enter a valid quantity.");
-      return;
-    }
-
-    if (cart[item]) {
-      cart[item].qty += qty;
-    } else {
-      cart[item] = { price, qty };
-    }
-
-    qtyInput.value = 1;
-    updateCartDisplay();
+  if (isNaN(qty) || qty <= 0) {
+    qty = 1; // default fallback
+    qtyInput.value = 1; // update input box
   }
+
+  if (cart[item]) {
+    cart[item].qty += qty;
+  } else {
+    cart[item] = { price, qty };
+  }
+
+  updateCartDisplay();
+}
 function decreaseQty(btn) {
   const qtyInput = btn.nextElementSibling.previousElementSibling;
   if (parseInt(qtyInput.value) > 1) {
