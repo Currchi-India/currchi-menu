@@ -433,7 +433,15 @@ input:checked + .slider:before {
     <button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button>
   </span>
 </div>
-  <div class="menu-item"><span>🌿 Paneer Tikka Roll</span><span>₹145</span></div>
+  <div class="menu-item">
+  <span>🌿 Paneer Tikka Roll</span>
+  <span>
+    ₹145 
+    <button onclick="decreaseQty(this)">➖</button>
+    <input type="number" min="1" value="1" class="qty-input" />
+    <button onclick="addToCart('🌿 Paneer Tikka Roll', 145, this)">➕</button>
+  </span>
+</div>
   <div class="menu-item"><span>🌿 Afghani Malai Chaap Roll</span><span>₹155</span></div>
   <div class="menu-item"><span>🌿 Malai Paneer Roll</span><span>₹155</span></div>
   <div class="menu-item"><span>🌿 Chilli Paneer Roll</span><span>₹155</span></div>
@@ -857,18 +865,7 @@ function launchBalloon() {
   ">Place Order on WhatsApp</button>
 </a>
 </div>
-    <script>
-      <div id="cart-panel">
-  <p>🛒 <strong>Your Cart:</strong></p>
-  <ul id="cart-items" style="list-style: none; padding-left: 0;"></ul>
-  <p><strong>Total:</strong> ₹<span id="cart-total">0</span></p>
-  <button class="clear-btn" onclick="clearCart()">🧹 Clear Cart</button>
-  <a id="whatsapp-link" target="_blank">
-    <button class="whatsapp-btn">Place Order on WhatsApp</button>
-  </a>
-</div>
-    <script>
-  const cart = {};
+    const cart = {};
 
   function decreaseQty(btn) {
     const qtyInput = btn.nextElementSibling;
