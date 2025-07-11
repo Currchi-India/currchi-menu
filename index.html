@@ -869,14 +869,13 @@ function launchBalloon() {
     <script>
     const cart = {};
 
- function decreaseQty(btn) {
-  const parent = btn.parentElement;
-  const qtyInput = parent.querySelector('.qty-input');
-  let qty = parseInt(qtyInput.value);
-  if (qty > 1) {
-    qtyInput.value = qty - 1;
+  function decreaseQty(btn) {
+    const qtyInput = btn.nextElementSibling;
+    let qty = parseInt(qtyInput.value);
+    if (qty > 1) {
+      qtyInput.value = qty - 1;
+    }
   }
-}
 
   function addToCart(item, price, btn) {
     const qtyInput = btn.previousElementSibling;
