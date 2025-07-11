@@ -9,6 +9,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
+    #cart-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff8dc;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  z-index: 999;
+  max-width: 400px;
+  margin: 0 auto;
+  max-height: 250px;      /* optional: scroll if many items */
+  overflow-y: auto;       /* optional: allows scrolling */
+}
     #cart-panel::-webkit-scrollbar {
   width: 6px;
 }
@@ -16,7 +31,9 @@
   background: #bbb;
   border-radius: 6px;
 }
-    body {
+        body {
+          padding-bottom: 180px; /* Leave space for cart panel at bottom */
+}
       margin: 0;
       padding: 0;
       background-color: #111;
@@ -375,6 +392,7 @@ input:checked + .slider:before {
   <span>
     ₹145
     <input type="number" min="1" value="1" class="qty-input" style="width: 32px; margin: 0 4px;" />
+    <button onclick="decreaseQty(this)">➖</button>
     <button onclick="addToCart('🌿 Soya Chaap Tikka Roll', 145, this)">➕</button>
   </span>
 </div>
@@ -823,7 +841,12 @@ function launchBalloon() {
     qtyInput.value = 1;
     updateCartDisplay();
   }
-
+function decreaseQty(btn) {
+  const qtyInput = btn.nextElementSibling.previousElementSibling;
+  if (parseInt(qtyInput.value) > 1) {
+    qtyInput.value = parseInt(qtyInput.value) - 1;
+  }
+}
   function updateCartDisplay() {
     const cartList = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
