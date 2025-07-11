@@ -42,41 +42,31 @@
   background: #bbb;
   border-radius: 6px;
 }
-.qty-control {
+.qty-cart-box {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: #f8f8f8;
-  padding: 2px 10px;
-  border-radius: 14px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
-  height: 32px;
+  gap: 6px;
+  font-size: 18px;
 }
 
-.qty-control button {
-  background: #f0c75e;
+.qty-cart-box button,
+.qty-cart-box .qty-display {
+  background: transparent;
   border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 0.85rem;
-  cursor: pointer;
+  padding: 0;
+  color: #000;
   font-weight: bold;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  cursor: pointer;
 }
 
 .qty-display {
-  min-width: 18px;
+  min-width: 20px;
   text-align: center;
-  font-weight: bold;
-  color: #000;
 }
 
-body.dark-theme .qty-display {
+/* Dark mode styles */
+body.dark-mode .qty-cart-box button,
+body.dark-mode .qty-cart-box .qty-display {
   color: #fff;
 }
 button {
@@ -455,13 +445,13 @@ input:checked + .slider:before {
   <span>Price</span>
 </div>
 <div class="menu-item">
- <span>🌿 Soya Chaap Tikka Roll</span>
-  <span class="qty-controls">
-      ₹145
-     <div class="qty-control">
-  <button onclick="decreaseQty(this)">➖</button>
-  <span class="qty-display">1</span>
-  <button onclick="increaseQty(this)">➕</button>
+  <span>🌿 Soya Chaap Tikka Roll</span>
+  <div class="qty-cart-box">
+    <button onclick="decreaseQty(this)">➖</button>
+    <span class="qty-display">1</span>
+    <button onclick="increaseQty(this)">➕</button>
+    <button class="cart-btn" onclick="addToCart(this)">🛒</button>
+  </div>
 </div>
       <button onclick="addToCart(this)">🛒</button>
     </span>
