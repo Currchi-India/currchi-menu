@@ -42,7 +42,33 @@
   background: #bbb;
   border-radius: 6px;
 }
+.qty-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8f8f8;
+  padding: 4px 12px;
+  border-radius: 18px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
 
+.qty-control button {
+  background: #f0c75e;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.qty-display {
+  min-width: 20px;
+  text-align: center;
+  font-weight: bold;
+}
 .qty-input {
   width: 40px;
   text-align: center;
@@ -428,9 +454,12 @@ input:checked + .slider:before {
     <span>🌿 Soya Chaap Tikka Roll</span>
     <span class="qty-controls">
       ₹145
-      <button onclick="decreaseQty(this)">➖</button>
-      <input type="number" min="1" value="1" class="qty-input" />
-      <button onclick="increaseQty(this)">➕</button>
+     <div class="qty-control">
+  <button onclick="decreaseQty(this)">➖</button>
+  <span class="qty-display">1</span>
+  <button onclick="increaseQty(this)">➕</button>
+</div>
+<button onclick="addToCart(this)">Add to Cart</button>
       <button onclick="addToCart(this)">🛒</button>
     </span>
   </div>
@@ -439,9 +468,12 @@ input:checked + .slider:before {
     <span>🌿 Paneer Tikka Roll</span>
     <span class="qty-controls">
       ₹145
-      <button onclick="decreaseQty(this)">➖</button>
-      <input type="number" min="1" value="1" class="qty-input" />
-      <button onclick="increaseQty(this)">➕</button>
+     <div class="qty-control">
+  <button onclick="decreaseQty(this)">➖</button>
+  <span class="qty-display">1</span>
+  <button onclick="increaseQty(this)">➕</button>
+</div>
+<button onclick="addToCart(this)">Add to Cart</button>
       <button onclick="addToCart(this)">🛒</button>
     </span>
   </div>
@@ -877,54 +909,52 @@ function launchBalloon() {
     <script>
     const cart = {};
 
-    function addToCart(btn) {
-      const menuItem = btn.closest('.menu-item');
-      const itemName = menuItem.querySelector('span').textContent.trim();
-      const priceText = menuItem.innerText.match(/₹(\d+)/);
-      const price = priceText ? parseInt(priceText[1]) : 0;
-      const qtyInput = menuItem.querySelector('.qty-input');
-      const qty = parseInt(qtyInput.value);
+   function addToCart(btn) {
+  const menuItem = btn.closest('.menu-item');
+  const itemName = menuItem.querySelector('span').textContent.trim();
+  const priceText = menuItem.innerText.match(/₹(\d+)/);
+  const price = priceText ? parseInt(priceText[1]) : 0;
+  const qtyDisplay = menuItem.querySelector('.qty-display');
+  const qty = parseInt(qtyDisplay.textContent);
 
-      if (!qty || qty < 1) {
-        alert("Please enter a valid quantity");
-        return;
-      }
+  if (!qty || qty < 1) {
+    alert("Please enter a valid quantity");
+    return;
+  }
 
-      cart[itemName] = { price, qty };
-      updateCartDisplay();
-    }
+  cart[itemName] = { price, qty };
+  updateCartDisplay();
+}
 
     function decreaseQty(btn) {
-      const menuItem = btn.closest('.menu-item');
-      const qtyInput = menuItem.querySelector('.qty-input');
-      const itemName = menuItem.querySelector('span').textContent.trim();
-      let qty = parseInt(qtyInput.value);
+  const menuItem = btn.closest('.menu-item');
+  const qtyDisplay = menuItem.querySelector('.qty-display');
+  let qty = parseInt(qtyDisplay.textContent);
+  if (qty > 1) {
+    qty -= 1;
+    qtyDisplay.textContent = qty;
 
-      if (qty > 1) {
-        qty -= 1;
-        qtyInput.value = qty;
-
-        if (cart[itemName]) {
-          cart[itemName].qty = qty;
-          updateCartDisplay();
-        }
-      }
+    const itemName = menuItem.querySelector('span').textContent.trim();
+    if (cart[itemName]) {
+      cart[itemName].qty = qty;
+      updateCartDisplay();
     }
+  }
+}
 
-    function increaseQty(btn) {
-      const menuItem = btn.closest('.menu-item');
-      const qtyInput = menuItem.querySelector('.qty-input');
-      const itemName = menuItem.querySelector('span').textContent.trim();
-      let qty = parseInt(qtyInput.value);
+   function increaseQty(btn) {
+  const menuItem = btn.closest('.menu-item');
+  const qtyDisplay = menuItem.querySelector('.qty-display');
+  let qty = parseInt(qtyDisplay.textContent);
+  qty += 1;
+  qtyDisplay.textContent = qty;
 
-      qty += 1;
-      qtyInput.value = qty;
-
-      if (cart[itemName]) {
-        cart[itemName].qty = qty;
-        updateCartDisplay();
-      }
-    }
+  const itemName = menuItem.querySelector('span').textContent.trim();
+  if (cart[itemName]) {
+    cart[itemName].qty = qty;
+    updateCartDisplay();
+  }
+}
 
     function updateCartDisplay() {
       const cartList = document.getElementById('cart-items');
