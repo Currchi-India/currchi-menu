@@ -637,17 +637,24 @@ input:checked + .slider:before {
   <!-- Salad -->
   <div class="menu-item"><span>Green Salad</span><span>-  / ₹65</span></div>
 </div>
-
-    
-  <!-- Footer -->
-    <div id="cart-panel" style="position:fixed; bottom:0; left:0; right:0; background:#fff7d6; color:#000; padding:1rem; box-shadow:0 -2px 6px rgba(0,0,0,0.3); z-index:9999;">
-  <strong>🛒 Your Cart:</strong>
-  <ul id="cart-items" style="margin:0; padding:0.5rem 0; list-style:none;"></ul>
-  <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
-  <a id="whatsapp-link" target="_blank">
-    <button style="background:#28a745; color:#fff; border:none; padding:0.5rem 1rem; border-radius:10px; font-weight:bold; cursor:pointer;">Place Order on WhatsApp</button>
-  </a>
-</div>
+ <div id="cart-panel" style="
+  display: none;  /* ← hide initially */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: #fff7d6;
+  color: #000;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  z-index: 9999;
+  font-size: 0.95rem;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #fff7d6;
+">
 <div class="footer">
   <p>📍 <strong>CURRCHI</strong> || Ramesh Nagar, New Delhi ||</p>
   <p>⏰ <strong>Open Daily:</strong> 2:00 PM – 12:00 AM</p>
@@ -766,30 +773,34 @@ function launchBalloon() {
   }
 
   function updateCartDisplay() {
-    const cartList = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const whatsappLink = document.getElementById('whatsapp-link');
+  const cartList = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const whatsappLink = document.getElementById('whatsapp-link');
+  const cartPanel = document.getElementById('cart-panel');
 
-    cartList.innerHTML = '';
-    let total = 0;
-    let message = `Hi Currchi - Full on Desi!! I want to place the following order:\n\n`;
+  cartList.innerHTML = '';
+  let total = 0;
+  let message = `Hi Currchi - Full on Desi!! I want to place the following order:\n\n`;
 
-    for (let item in cart) {
-      const { price, qty } = cart[item];
-      const lineTotal = price * qty;
-      total += lineTotal;
-      message += `• ${item} x ${qty} = ₹${lineTotal}\n`;
+  for (let item in cart) {
+    const { price, qty } = cart[item];
+    const lineTotal = price * qty;
+    total += lineTotal;
+    message += `• ${item} x ${qty} = ₹${lineTotal}\n`;
 
-      const li = document.createElement('li');
-      li.textContent = `${item} x ${qty} = ₹${lineTotal}`;
-      cartList.appendChild(li);
-    }
-
-    message += `\nTotal: ₹${total}\n\nPlease confirm availability.`;
-
-    cartTotal.textContent = total;
-    whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
+    const li = document.createElement('li');
+    li.textContent = `${item} x ${qty} = ₹${lineTotal}`;
+    cartList.appendChild(li);
   }
+
+  // Show cart panel if there's at least one item
+  cartPanel.style.display = total > 0 ? 'block' : 'none';
+
+  message += `\nTotal: ₹${total}\n\nPlease confirm order.`;
+
+  cartTotal.textContent = total;
+  whatsappLink.href = `https://wa.me/919899427503?text=${encodeURIComponent(message)}`;
+}
 </script>
 </body>
 </html>
