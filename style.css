@@ -415,31 +415,37 @@ input:checked + .slider:before {
   margin: 20px 0;
 }
 
-/* Styled like other nav buttons */
-.nav-btn {
-  background-color: #f0c75e;
-  color: black;
-  border: none;
-  padding: 10px 16px;
-  margin: 5px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  position: relative;
-  transition: background-color 0.3s ease;
-}
+  /* Default nav button */
+  .nav-btn {
+    background-color: #f0c75e;
+    color: black;
+    border: none;
+    padding: 10px 16px;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
 
-/* Active state */
-.nav-btn.active {
-  background-color: #f59c1a;
-  color: white;
-}
+  /* When Veg is active */
+  #veg-toggle.active {
+    background-color: #2ecc71; /* green */
+    color: white;
+  }
 
-/* Clear X button */
-.clear-x {
-  font-size: 14px;
-  margin-left: 6px;
-  color: red;
-  cursor: pointer;
-}
+  /* When Non-Veg is active */
+  #nonveg-toggle.active {
+    background-color: #e74c3c; /* red */
+    color: white;
+  }
+
+  /* Clear X icon */
+  .clear-x {
+    font-size: 14px;
+    margin-left: 6px;
+    color: red;
+    cursor: pointer;
+  }
  </style>
