@@ -409,35 +409,37 @@ input:checked + .slider:before {
   80%  { opacity: 1; }
   100% { opacity: 0; }
 }
-.filter-toggle-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 20px auto;
-}
+/* Default nav button */
+  .nav-btn {
+    background-color: #f0c75e;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
 
-.filter-btn {
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 25px;
-  padding: 6px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  position: relative;
-}
+  /* When Veg is active */
+  #veg-toggle.active {
+    background-color: #2ecc71; /* green */
+    color: white;
+  }
 
-.filter-btn.active#veg-toggle {
-  background-color: #d0f5d0;
-}
+  /* When Non-Veg is active */
+  #nonveg-toggle.active {
+    background-color: #e74c3c; /* red */
+    color: white;
+  }
 
-.filter-btn.active#nonveg-toggle {
-  background-color: #f8d0d0;
-}
-
-.close-btn {
-  margin-left: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
+  /* Clear X icon */
+  .clear-x {
+    font-size: 14px;
+    margin-left: 6px;
+    color: red;
+    cursor: pointer;
+  }
  </style>
