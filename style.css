@@ -409,6 +409,13 @@ input:checked + .slider:before {
   80%  { opacity: 1; }
   100% { opacity: 0; }
 }
+/* Center the toggle container */
+.filter-toggle-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
 /* Default nav button */
   .nav-btn {
     background-color: #f0c75e;
