@@ -147,7 +147,7 @@
 </div>
 
   <div class="menu-section menu-column" data-category="Breads">
-  <h2>🫓 Breads 🌿</h2>
+  <h2 id="breads">🫓 Breads 🌿</h2>
   <img src="breads.jpg" class="section-image" alt="Currchi Breads">
   <div class="menu-header">
     <span>Items</span>
@@ -333,7 +333,7 @@
 </div>
 
     <div class="menu-section menu-column" data-category="raita-salad">
-  <h2>🥗 Raita & Salad 🌿 </h2>
+  <h2 id="raita-salad">🥗 Raita & Salad 🌿</h2>
   <img src="salad.jpg" class="section-image" alt="Currchi Raita and Salad">
   <div class="menu-header">
     <span>Items</span>
@@ -839,7 +839,7 @@ function filterDishes(type) {
   showVegPlaceholdersIfEmpty();
 }
 
-// Show "Please select Veg items" if Non-Veg is selected and veg sections are empty
+// Show "Only Available in Veg" if Non-Veg is selected and veg sections are empty
 function showVegPlaceholdersIfEmpty() {
   document.querySelectorAll('.menu-section').forEach(section => {
     const heading = section.querySelector('h2')?.innerText || '';
@@ -850,7 +850,7 @@ function showVegPlaceholdersIfEmpty() {
     if (!placeholder) {
       placeholder = document.createElement('div');
       placeholder.className = 'veg-placeholder';
-      placeholder.innerHTML = `<em>Please select Veg items</em>`;
+      placeholder.innerHTML = `<em>Only Available in Veg</em>`;
       section.appendChild(placeholder);
     }
 
