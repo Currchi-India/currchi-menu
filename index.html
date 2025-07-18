@@ -8,418 +8,7 @@
   <meta name="description" content="Order Momos, Tandoori, Rolls, Biryani & Chinese from Currchi – Serving Ramesh Nagar, Karol Bagh, Punjabi Bagh, Moti Nagar, Rajouri Garden & nearby Delhi areas. Call or WhatsApp now!">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <style>
-    .menu-header, .menu-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    align-items: center;
-  }
-
-  .menu-header {
-    font-weight: bold;
-    border-bottom: 2px solid #f0c75e;
-    margin-bottom: 5px;
-  }
-   .qty-cart-box {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-.qty-cart-box button {
-  border: none;
-  background: transparent;
-  font-size: 1.0rem;
-  gap: 0.2rem; 
-  color: #f0c75e;
-  cursor: pointer;
-}
-
-.qty-cart-box span {
-  min-width: 18px;
-  text-align: center;
-  font-weight: bold;
-  color: #fff;
-}
-
-/* Cart Panel Styling */
-.cart-panel {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(28, 28, 28, 0.75); /* 85% opacity */
-  color: #fff;
-  padding: 1rem;
-  z-index: 999;
-  font-size: 0.95rem;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.5);
-  display: none;
-  backdrop-filter: blur(5px); /* optional: glassmorphism blur */
-}
-  #cart-items {
-  max-height: calc(1.8rem * 5); /* approx height for 5 items (adjust if needed) */
-  overflow-y: auto;
-  margin: 0.5rem 0;
-  padding-right: 0.5rem;
-}
-
-
-.cart-panel ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.cart-panel li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  align-items: center;
-}
-
-.cart-panel li button {
-  background: #f44336;
-  color: #fff;
-  border: none;
-  padding: 3px 8px;
-  font-size: 0.8rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.floating-order-button {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 0.5rem 1rem;
-  background-color: #25d366;
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 20px;
-}
-
-    body {
-      padding-bottom: 180px; /* pushes up content so footer/menu is not hidden */
-      margin: 0;
-      padding: 0;
-      background-color: #111;
-      color: #fff;
-      font-family: 'Roboto', sans-serif;
-    }
-header {
-  background-color: #FFF7D6;
-  text-align: center;
-  padding: 0.5rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 110px; /* increased from 80px */
-  overflow: hidden;
-}
-header img {
-  height: 120px;
-  width: 400px;
-  object-fit: contain;
-}
-    .nav-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      background-color: #111;
-      padding: 1rem;
-      position: relative; /* Not sticky */
-      z-index: 1000;
-    }
-
-    .nav-bar button,
-    .nav-bar a button {
-      background: #f0c75e;
-      border: none;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 20px;
-      cursor: pointer;
-      color: #000;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .menu-container {
-      padding-bottom: 120px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1210px;
-      margin: auto;
-    }
-
- .menu-column {
-  background-color: #1c1c1c;
-  border-radius: 8px;
-  padding: 1rem;
-  width: 100%;
-  max-width: 500px; /* limits on large screens */
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  text-align: center;
-  flex: 1 1 100%;
-}
-
-    .menu-column h2 {
-      font-size: 1.5rem;
-      color: #f0c75e;
-      border-bottom: 2px dashed #f0c75e;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .menu-item {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #333;
-  padding: 0.5rem 0;
-  gap: 0.5rem;
-}
-
-    .section-image {
-  width: 100%;
-  height: 180px; /* set a fixed height */
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-}
-    .footer {
-      background: #000;
-      text-align: center;
-      padding: 1rem;
-      color: #fff;
-      font-size: 1.1rem;
-    }
-    /* Transition for theme switching */
-body, .menu-column, .footer, .nav-bar, .back-to-top {
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-    .floating-call-buttons {
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: none;
-      gap: 1rem;
-      z-index: 2000;
-    }
-
-    .floating-call-buttons a button {
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    }
-
-    .back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: 15px;
-      background: #f0c75e;
-      color: #000;
-      border: none;
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      cursor: pointer;
-      z-index: 1001;
-    }
-    /* Theme toggle button styles */
-#themeToggle {
-  font-size: 0.9rem;
-  padding: 0.3rem 0.7rem;
-  border-radius: 18px;
-  background: #f0c75e;
-  color: #000;
-  border: none;
-  cursor: pointer;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, transform 0.2s;
-}
-#themeToggle:hover {
-  transform: scale(1.1);
-}
-  /* Light mode styling */
-body.light-mode {
-  background-color: #FFF2E1;  /* Changed from #fff */
-  color: #000;
-}
-
-body.light-mode .menu-column {
-  background-color: #FFE0C2;  /* Optional: soft variant for menu cards */
-  color: #000;
-}
-
-body.light-mode .nav-bar {
-  background-color: #FFD6A0;  /* Optional: match theme */
-}
-
-body.light-mode .footer {
-  background-color: #FFD6A0;
-  color: #000;
-}
-
-body.light-mode .back-to-top {
-  background-color: #333;
-  color: #fff;
-}
- @keyframes floatUp {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-150px);
-    opacity: 0;
-  }
-}
-#balloon {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  z-index: 9999;
-}
-#sprinkles {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  z-index: 9999;
-  display: none;
-}
-  #bookmark-line.tilt {
-  transform: rotate(-2deg);
-  display: inline-block;
-}
-  .tilt-text {
-  display: inline-block;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #f0c75e;
-  text-align: center;
-  animation: tilt 1.5s infinite ease-in-out;
-  transform-origin: center;
-}
-
-@keyframes tilt {
-  0%   { transform: rotate(0deg); }
-  25%  { transform: rotate(3deg); }
-  50%  { transform: rotate(0deg); }
-  75%  { transform: rotate(-3deg); }
-  100% { transform: rotate(0deg); }
-}
-    .theme-switch-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.theme-switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
-}
-
-.theme-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  background: url('toggle-day.png') no-repeat center;
-  background-size: cover;
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 26px;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background: url('toggle-night.png') no-repeat center;
-  background-size: cover;
-}
-
-input:checked + .slider:before {
-  transform: translateX(24px);
-}
-    #theme-toggle-checkbox {
-  width: 20px;
-  height: 20px;
-  transform: scale(0.8); /* Shrinks the checkbox */
-  cursor: pointer;
-}
-    .menu-item button {
-  border: none;
-  background: transparent;
-  color: #f0c75e;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-.menu-item span {
-  color: inherit;
-}
-.rotating-ticker {
-  background: #222;
-  color: #f0c75e;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: 500;
-  font-size: 0.95rem;
-  border-bottom: 1px solid #f0c75e;
-  position: relative;
-}
-#ticker-message {
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-} 
-    
-@keyframes fadeInOut {
-  0%   { opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { opacity: 0; }
-}
- </style>
+  <link rel="stylesheet" href="style.css" />
  </head>
 <body>
   <header id="top">
@@ -451,7 +40,14 @@ input:checked + .slider:before {
   </label>
 </div>
   </div>
-
+<div class="filter-toggle-container">
+  <button id="veg-toggle" class="nav-btn">
+    🌿 Veg <span id="veg-clear" class="clear-x">✖</span>
+  </button>
+  <button id="nonveg-toggle" class="nav-btn">
+    🍖 Non-Veg <span id="nonveg-clear" class="clear-x">✖</span>
+  </button>
+</div>
   <!-- Floating Call Buttons -->
   <div class="floating-call-buttons" id="floatingCallButtons">
     <a href="tel:+919211791827"><button>📞 Call Us</button></a>
@@ -550,7 +146,7 @@ input:checked + .slider:before {
   <div class="menu-item" data-name="🍖 Clear Soup" data-price="95"></div>
 </div>
 
-  <div class="menu-column" id="breads">
+  <div class="menu-section menu-column" data-category="Breads">
   <h2>🫓 Breads 🌿</h2>
   <img src="breads.jpg" class="section-image" alt="Currchi Breads">
   <div class="menu-header">
@@ -736,7 +332,7 @@ input:checked + .slider:before {
   <div class="menu-item" data-name="🍖 Mutton Biryani" data-half="395" data-full="675"></div>
 </div>
 
-    <div class="menu-column" id="raita-salad">
+    <div class="menu-section menu-column" data-category="raita-salad">
   <h2>🥗 Raita & Salad 🌿 </h2>
   <img src="salad.jpg" class="section-image" alt="Currchi Raita and Salad">
   <div class="menu-header">
@@ -1176,7 +772,42 @@ let current = 0;
     ticker.textContent = messages[current];
     ticker.style.opacity = 1;
     setInterval(showNextMessage, 6500); // Total time per message
-  }, 2000);
+  }, 1000);
+</script>
+<script>
+  /* Center the toggle buttons */
+.filter-toggle-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Styled like other nav buttons */
+.nav-btn {
+  background-color: #f0c75e;
+  color: black;
+  border: none;
+  padding: 10px 16px;
+  margin: 5px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+/* Active state */
+.nav-btn.active {
+  background-color: #f59c1a;
+  color: white;
+}
+
+/* Clear X button */
+.clear-x {
+  font-size: 14px;
+  margin-left: 6px;
+  color: red;
+  cursor: pointer;
+}
 </script>
 </body>
 </html>
