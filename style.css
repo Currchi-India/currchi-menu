@@ -6,7 +6,9 @@
     align-items: center;
   }
 
-  .menu-header {
+   .menu-header {
+     display: flex;
+    justify-content: space-between;
     font-weight: bold;
     border-bottom: 2px solid #f0c75e;
     margin-bottom: 5px;
