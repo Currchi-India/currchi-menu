@@ -775,38 +775,98 @@ let current = 0;
   }, 1000);
 </script>
 <script>
-  /* Center the toggle buttons */
-.filter-toggle-container {
-  text-align: center;
-  margin: 20px 0;
+const vegToggle = document.getElementById('veg-toggle');
+const nonvegToggle = document.getElementById('nonveg-toggle');
+const vegClear = document.getElementById('veg-clear');
+const nonvegClear = document.getElementById('nonveg-clear');
+
+// Toggle button clicks
+vegToggle.addEventListener('click', (e) => {
+  if (e.target === vegClear) return;
+  if (!vegToggle.classList.contains('active')) {
+    vegToggle.classList.add('active');
+    nonvegToggle.classList.remove('active');
+    filterDishes('veg');
+  }
+});
+
+nonvegToggle.addEventListener('click', (e) => {
+  if (e.target === nonvegClear) return;
+  if (!nonvegToggle.classList.contains('active')) {
+    nonvegToggle.classList.add('active');
+    vegToggle.classList.remove('active');
+    filterDishes('nonveg');
+  }
+});
+
+// Clear buttons (✖)
+vegClear.addEventListener('click', (e) => {
+  e.stopPropagation();
+  clearFilter();
+});
+
+nonvegClear.addEventListener('click', (e) => {
+  e.stopPropagation();
+  clearFilter();
+});
+
+// Clear both filters
+function clearFilter() {
+  vegToggle.classList.remove('active');
+  nonvegToggle.classList.remove('active');
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.style.display = '';
+  });
+  hideVegPlaceholders();
 }
 
-/* Styled like other nav buttons */
-.nav-btn {
-  background-color: #f0c75e;
-  color: black;
-  border: none;
-  padding: 10px 16px;
-  margin: 5px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  position: relative;
-  transition: background-color 0.3s ease;
+// Filtering logic
+function filterDishes(type) {
+  document.querySelectorAll('.menu-item').forEach(item => {
+    const text = item.innerText;
+    const section = item.closest('.menu-column')?.querySelector('h2')?.innerText || '';
+
+    const isVeg = text.includes('🌿') || section.includes('🥗') || section.includes('🫓');
+    const isNonVeg = text.includes('🍖');
+
+    if (type === 'veg') {
+      item.style.display = isVeg ? '' : 'none';
+    } else if (type === 'nonveg') {
+      item.style.display = isNonVeg ? '' : 'none';
+    }
+  });
+
+  showVegPlaceholdersIfEmpty();
 }
 
-/* Active state */
-.nav-btn.active {
-  background-color: #f59c1a;
-  color: white;
+// Show "Please select Veg items" if Non-Veg is selected and veg sections are empty
+function showVegPlaceholdersIfEmpty() {
+  document.querySelectorAll('.menu-section').forEach(section => {
+    const heading = section.querySelector('h2')?.innerText || '';
+    const isAlwaysVeg = heading.includes('🥗') || heading.includes('🫓');
+    const visibleItems = section.querySelectorAll('.menu-item:not([style*="display: none"])');
+
+    let placeholder = section.querySelector('.veg-placeholder');
+    if (!placeholder) {
+      placeholder = document.createElement('div');
+      placeholder.className = 'veg-placeholder';
+      placeholder.innerHTML = `<em>Please select Veg items</em>`;
+      section.appendChild(placeholder);
+    }
+
+    if (isAlwaysVeg && visibleItems.length === 0) {
+      placeholder.style.display = 'block';
+    } else {
+      placeholder.style.display = 'none';
+    }
+  });
 }
 
-/* Clear X button */
-.clear-x {
-  font-size: 14px;
-  margin-left: 6px;
-  color: red;
-  cursor: pointer;
+// Hide all placeholders when clearing filter
+function hideVegPlaceholders() {
+  document.querySelectorAll('.veg-placeholder').forEach(msg => {
+    msg.style.display = 'none';
+  });
 }
 </script>
 </body>
